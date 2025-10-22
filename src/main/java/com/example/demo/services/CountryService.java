@@ -12,6 +12,7 @@ import com.example.demo.repositories.*;
 
 @Service
 public class CountryService {
+	
 	@Autowired
 	private CountryRepository countryRep;
 	
