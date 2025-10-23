@@ -94,6 +94,10 @@
         <id>maven-project</id>
         <url>http://localhost:8081/repository/maven-project/</url>
       </repository>
+      <snapshotRepository>
+        <id>maven-snapshots</id>
+        <url>http://localhost:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
     </distributionManagement>
 
 </project>
