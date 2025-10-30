@@ -34,7 +34,9 @@ pipeline{
             withKubeConfig([credentialsId: 'kubeconfig-file', serverUrl: '']) {
 		sh 'echo PATH=$PATH'
 		sh 'which kubectl || echo "kubectl not in PATH"'
-
+                 sh '''
+                sed -i "s/\\${BUILD_NUMBER}/${BUILD_NUMBER}/g" deployment.yaml
+                cat deployment.yaml '''
                 sh 'kubectl apply -f deployment.yaml'
                 sh 'kubectl apply -f service.yaml'
                 }
