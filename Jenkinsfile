@@ -8,7 +8,7 @@ pipeline{
          stage ('Checkout code')
 	   {
              steps{
-               git branch: 'main' , url: https://github.com/zaineb827/maven.git'
+               git branch: 'main' , url: 'https://github.com/zaineb827/maven.git'
                  }
           }
           stage ('Build maven')
