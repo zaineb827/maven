@@ -32,6 +32,9 @@ pipeline{
           steps {
            script {
             withKubeConfig([credentialsId: 'kubeconfig-file', serverUrl: '']) {
+		sh 'echo PATH=$PATH'
+		sh 'which kubectl || echo "kubectl not in PATH"'
+
                 sh 'kubectl apply -f deployment.yaml'
                 sh 'kubectl apply -f service.yaml'
                 }
