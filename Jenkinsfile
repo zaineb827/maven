@@ -31,7 +31,7 @@ pipeline{
          stage('Deploy to Kubernetes') {
           steps {
            script {
-            withKubeConfig([credentialsId: 'kubeconfig-file', serverUrl: 'https://kubernetes.docker.internal:6443']) {
+            withKubeConfig([credentialsId: 'kubeconfig-file', serverUrl: '']) {
                 sh 'kubectl apply -f deployment.yaml'
                 sh 'kubectl apply -f service.yaml'
                 }
