@@ -16,4 +16,4 @@ spec:
         - name: country-service-container
           image: zainebkallel/my-country-service:${BUILD_NUMBER}
           ports:
-            - containerPort: 8082
+            - containerPort: 8080
