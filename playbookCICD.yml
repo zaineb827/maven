@@ -9,6 +9,7 @@
     dockerfile_path: './'
     docker_username: zainebkallel
     docker_password: Jcpdockerok
+    ansible_python_interpreter: /usr/bin/python3
 
   tasks:
     - name: Log in to Docker Hub
