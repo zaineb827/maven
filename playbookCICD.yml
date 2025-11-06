@@ -40,3 +40,10 @@
         namespace: jenkins
         src: service.yaml
         kubeconfig: config
+    - name: Apply kubernetes deployment
+      kubernetes.core.k8s:
+        state: present
+        namespace: jenkins
+        src: deployment.yaml   # <-- ton fichier de déploiement
+        kubeconfig: config
+    
