@@ -31,7 +31,7 @@ pipeline{
         always {
          cleanWs()
        }
-      succes {
+      success {
         echo 'success'
       }
      failure {
