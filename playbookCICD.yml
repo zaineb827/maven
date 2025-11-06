@@ -7,8 +7,10 @@
    image_name: my-country-service
    image_tag: v1
    dockerfile_path: './'
-  vars_file:
+
+  vars_files:
    - secrets.yml
+
   tasks:
    - name: Log in to Docker Hub
      Community.general.docker_login:
@@ -19,15 +21,14 @@
    - name: Build docker image
      docker_image:
       build:
-        path: "{{dockerfile_path }}"
-      name: "{{ docker_username }}/{{ image_name }}:{{image_tag}}"
+        path: "{{ dockerfile_path }}"
+      name: "{{ docker_username }}/{{ image_name }}:{{ image_tag }}"
       source: build
       state: present
-      tag: "{{image_tag}}"
-   
-    - name: Push the Docker image to Docker Hub
-      docker_image:
-       name: "{{ docker_registry_username }}/{{ image_name }}:{{ image_tag}}"
+
+   - name: Push the Docker image to Docker Hub
+     docker_image:
+       name: "{{ docker_registry_username }}/{{ image_name }}:{{ image_tag }}"
        tag: "{{ image_tag }}"
        push: yes
        source: local
@@ -39,3 +40,4 @@
        src: service.yaml
       
   
+   
