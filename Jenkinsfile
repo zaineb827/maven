@@ -17,33 +17,25 @@ pipeline{
 		 sh 'mvn clean install'
 		}
 	     }
-	  stage('Build Docker Image') {
-            steps {
-                sh 'docker build . -t my-country-service:$BUILD_NUMBER'
-                withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                    sh 'docker login -u zainebkallel -p $dockerhubpwd'
-                }
-                sh 'docker tag my-country-service:$BUILD_NUMBER zainebkallel/my-country-service:$BUILD_NUMBER'
-                sh 'docker push zainebkallel/my-country-service:$BUILD_NUMBER'
-            }
-          }
-         
-         stage('Deploy to Kubernetes') {
+
+          stage ('Deploy using Ansible playbook') {
           steps {
-           script {
-            withKubeConfig([credentialsId: 'kubeconfig-file', serverUrl: '']) {
-		sh 'echo PATH=$PATH'
-		sh 'which kubectl || echo "kubectl not in PATH"'
-                 sh '''
-                sed -i "s/\\${BUILD_NUMBER}/${BUILD_NUMBER}/g" deployment.yaml
-                cat deployment.yaml '''
-                sh 'kubectl apply -f deployment.yaml'
-                sh 'kubectl apply -f service.yaml'
-                }
-              }
-            }
-         }    
-
-
+            script {
+              sh 'ansible-playbook -i hosts playbookCICD.yml '
+              }    
+             }
+           }
+                 
    }
+      post { 
+        always {
+         cleanWs()
+       }
+      succes {
+        echo 'success'
+      }
+     failure {
+     echo 'fail'
+     }
+ }
 }

@@ -1,0 +1,41 @@
+---
+- name: Build and Deploy Docker Image to Kubernetes
+  hosts: localhost
+  connection: local
+
+  vars: 
+   image_name: my-country-service
+   image_tag: v1
+   dockerfile_path: './'
+  vars_file:
+   - secrets.yml
+  tasks:
+   - name: Log in to Docker Hub
+     Community.general.docker_login:
+      username: "{{ docker_username }}"
+      password: "{{ docker_password }}"
+      reauthorize: yes
+
+   - name: Build docker image
+     docker_image:
+      build:
+        path: "{{dockerfile_path }}"
+      name: "{{ docker_username }}/{{ image_name }}:{{image_tag}}"
+      source: build
+      state: present
+      tag: "{{image_tag}}"
+   
+    - name: Push the Docker image to Docker Hub
+      docker_image:
+       name: "{{ docker_registry_username }}/{{ image_name }}:{{ image_tag}}"
+       tag: "{{ image_tag }}"
+       push: yes
+       source: local
+    
+    - name: Apply kubernetes service
+      kubernetes.core.k8s:
+       state: present
+       namespace: jenkins
+       src: service.yaml
+      
+  
