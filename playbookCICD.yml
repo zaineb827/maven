@@ -7,9 +7,8 @@
     image_name: my-country-service
     image_tag: v1
     dockerfile_path: './'
-
-  vars_files:
-    - secrets.yml
+    docker_username: zainebkallel
+    docker_password: Jcpdockerok
 
   tasks:
     - name: Log in to Docker Hub
