@@ -1,3 +1,4 @@
+
 package com.example.demo.controllers;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,16 +49,7 @@ public class CountryController {
 	    }
    }
    
-   // GEt by name
-   @GetMapping("/getcountries/countryname")
-   public ResponseEntity<List<Country>> getCountriesByName(@RequestParam String name) {
-       try {
-           List<Country> countries = countryservice.getCountriesByName(name);
-           return new ResponseEntity<>(countries, HttpStatus.OK);
-       } catch (Exception e) {
-           return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-       }
-   }
+   
    
    // Post
    @PostMapping("/addcountry")
@@ -102,30 +94,3 @@ public class CountryController {
    
    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
