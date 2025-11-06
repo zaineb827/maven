@@ -39,4 +39,4 @@
         state: present
         namespace: jenkins
         src: service.yaml
-
+        kubeconfig: config
