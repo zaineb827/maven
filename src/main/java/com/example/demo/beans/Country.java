@@ -22,9 +22,10 @@ public class Country {
     private Integer population;
     public Country() {
     }
-    public Country(Long id, String name, String continent, Integer population) {
+    public Country(Long id, String name,String capital, String continent, Integer population) {
         this.id = id;
         this.name = name;
+        this.capital=capital;
         this.continent = continent;
         this.population = population;
     }

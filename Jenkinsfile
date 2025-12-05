@@ -25,6 +25,20 @@ pipeline{
               }    
              }
            }
+
+          stage('Verify Prometheus scraping') {
+            steps {
+                script {
+                    // Vérifie que le Pod est prêt
+                    sh 'kubectl get pods -l app=country-service'
+
+                    // Vérifie que l'endpoint /actuator/prometheus répond
+                    sh 'curl -s http://localhost:30008/actuator/prometheus | head -n 10'
+
+                    echo 'My app is exposed on NodePort 30008. Prometheus can now scrape metrics!'
+                }
+            }
+        }
                  
    }
       post { 
